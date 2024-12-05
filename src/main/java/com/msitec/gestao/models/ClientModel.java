@@ -13,10 +13,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "TB_CLIENTS")
 public class ClientModel implements Serializable {
-    private static final Long serialVersionUID = 1L;
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true)
     private Long idClient;
     @Column(name = "NOME", length = 200)

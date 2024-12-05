@@ -9,5 +9,4 @@ public record ClientRecordDto(
     @NotBlank String nome,
     @NotBlank String cpf, 
     @NotNull LocalDateTime dataCriacao) {
-
 }
