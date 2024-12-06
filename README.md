@@ -151,13 +151,13 @@ Cliente deletado com sucesso!
 
 ```
 
-### Banco de dados
+## Banco de dados
 
 O projeto utiliza [H2](https://h2database.com/html/main.html) como banco de dados em memória.
 
 ## Exceções
 
-# Cliente não encontrado
+### Cliente não encontrado
 
 ```markdown
 
@@ -171,7 +171,7 @@ Cliente não encontrado
 
 ```
 
-# Cliente com CPF já cadastrado
+### Cliente com CPF já cadastrado
 
 ```markdown
 
@@ -185,7 +185,7 @@ Cliente com CPF já cadastrado
 
 ```
 
-# Cliente com CPF já cadastrado
+### Cliente com CPF já cadastrado
 
 ```markdown
 
@@ -198,3 +198,12 @@ HttpStatus: 400 Bad Request
 O CPF deve conter exatamente 11 dígitos numéricos
 
 ```
+
+## Testes de uso
+
+Utilize um software para testes de API, como Postman, por exemplo.
+
+### Exemplo Post
+
+<img src="/imgsreadme/ExemploPost.png">
+
