@@ -38,7 +38,7 @@ public class ClientController {
 
     @GetMapping
     public ResponseEntity<List<ClientModel>> getAllClients(){
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(clientService.findAll());
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.findAll());
     }
 
     @GetMapping("/{id}")
