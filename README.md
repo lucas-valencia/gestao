@@ -1,9 +1,45 @@
 # Sistema Gestão de Entidades com Spring Boot
 
+
+<p align="center">
+
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
 
+</p>
 Uma aplicação em Java utilizando o Spring Boot, com implementação de operações básicas de um sistema CRUD.
+
+## Requisitos Funcionais
+
+- [x] Listagem geral
+- [x] Consulta por ID
+- [x] Cadastro de Entidades
+- [x] Atualização de dados
+- [x] Remoção de Registros
+
+## Requisitos Técnicos
+
+- [x] Construção em Spring Boot
+- [x] Arquitetura em camadas
+    - [x] Controller
+    - [x] Repository
+    - [x] Service
+- [x] Mapeamento ORM e acesso aos dados com Hibernate
+- [x] Modelo de dados com:
+    - [x] Long ID
+    - [x] String nome
+    - [x] String cpf
+    - [x] LocalDateTime dataCriacao
+- [x] Verificação de duplicidade por CPF
+
+## Requisitos Extras
+- [x] Validação por Bean Validation
+- [x] Mensagens customizadas de erro no retorno das APIs
+- [] Criar filtro para buscar pelo nome
+- [] Implementar paginação na listagem das entidades
+- [] Criar testes unitários para as classes de serviço e/ou controller
+
+
 
 ## Instalação
 
