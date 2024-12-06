@@ -35,9 +35,9 @@ Uma aplicação em Java utilizando o Spring Boot, com implementação de operaç
 ## Requisitos Extras
 - [x] Validação por Bean Validation
 - [x] Mensagens customizadas de erro no retorno das APIs
-- [] Criar filtro para buscar pelo nome
-- [] Implementar paginação na listagem das entidades
-- [] Criar testes unitários para as classes de serviço e/ou controller
+- [ ] Criar filtro para buscar pelo nome
+- [ ] Implementar paginação na listagem das entidades
+- [ ] Criar testes unitários para as classes de serviço e/ou controller
 
 
 
