@@ -205,5 +205,5 @@ Utilize um software para testes de API, como Postman, por exemplo.
 
 ### Exemplo Post
 
-<img src="/imgsreadme/ExemploPost.png">
+<img src="/imgsreadme/ExemploPost.png" width="200">
 
