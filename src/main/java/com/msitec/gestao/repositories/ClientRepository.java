@@ -7,5 +7,6 @@ import com.msitec.gestao.models.ClientModel;
 
 @Repository
 public interface ClientRepository extends JpaRepository<ClientModel, Long>{
+    boolean existsByCpf(String cpf);
 
 }

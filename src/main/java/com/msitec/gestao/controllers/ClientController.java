@@ -1,10 +1,7 @@
 package com.msitec.gestao.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.apache.catalina.connector.Response;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +38,7 @@ public class ClientController {
 
     @GetMapping
     public ResponseEntity<List<ClientModel>> getAllClients(){
-        return ResponseEntity.status(HttpStatus.OK).body(clientService.findAll());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(clientService.findAll());
     }
 
     @GetMapping("/{id}")
@@ -53,17 +50,11 @@ public class ClientController {
     public ResponseEntity<Object> updateClient(
             @PathVariable(value = "id") Long id,
             @RequestBody @Valid ClientRecordDto clientRecordDto) {
-                ClientModel updateClient = clientService.updateClient(id, clientRecordDto);
                 return ResponseEntity.status(HttpStatus.OK).body(clientService.updateClient(id, clientRecordDto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteClient(@PathVariable(value="id") Long id){
-        // Optional<ClientModel> client0 = clientRepository.findById(id);
-        // if (client0.isEmpty()) {
-        //     return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");
-        // }
-        // clientRepository.delete(client0.get());
         return ResponseEntity.status(HttpStatus.OK).body(clientService.deleteClient(id));
     }
 

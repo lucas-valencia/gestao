@@ -3,14 +3,19 @@ package com.msitec.gestao.services;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.integration.IntegrationProperties.RSocket.Client;
+import org.springframework.cglib.core.Local;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.msitec.gestao.dtos.ClientRecordDto;
 import com.msitec.gestao.models.ClientModel;
 import com.msitec.gestao.repositories.ClientRepository;
+import com.msitec.gestao.exceptions.ClientAlreadyExistsException;
 import com.msitec.gestao.exceptions.ClientNoFoundException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,8 +57,33 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientModel save(ClientRecordDto clientRecordDto){
+        
+        /*for(Long i = 1L; i < clientRepository.findAll().size(); i++){
+            //var client0 = clientRepository.findById(i);
+            //Long cpfLong = Long.parseLong(client0.get().getCpf());
+            //Long cpfL = Long.parseLong(clientRepository.findById(i).get().getCpf());
+            if (clientRepository.findById(i).get().getCpf().equals(clientRecordDto.cpf())) {
+               throw new ClientAlreadyExistsException("Cliente com CPF já cadastrado");
+            }
+            //if (clientRecordDto.cpf().equals(clientRepository.findById(i).get().getCpf())) {    
+            //}
+        }*/
+        
+        String cpf = clientRecordDto.cpf();
+        if (cpf == null || !cpf.matches("\\d{11}")) {
+            throw new IllegalArgumentException("O CPF deve conter exatamente 11 dígitos numéricos");
+        }
+        
+        if (clientRepository.existsByCpf(clientRecordDto.cpf())) {
+            throw new ClientAlreadyExistsException("Cliente com CPF já cadastrado");
+        }
+
+        LocalDateTime dateTime = LocalDateTime.now();
+
         var client = new ClientModel();
         BeanUtils.copyProperties(clientRecordDto, client);
+        client.setDataCriacao(dateTime);
+
         return clientRepository.save(client);
     }
 
@@ -69,13 +99,13 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ClientModel deleteClient(Long id){
+    public String deleteClient(Long id){
         Optional<ClientModel> client = clientRepository.findById(id);
         if (client.isEmpty()) {
             throw new ClientNoFoundException("Cliente não encontrado");
         }
         clientRepository.delete(client.get());
-        return
+        return "Cliente deletado com sucesso!";
     }
 
 }
