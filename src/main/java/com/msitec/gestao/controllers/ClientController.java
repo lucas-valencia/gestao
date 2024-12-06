@@ -2,6 +2,7 @@ package com.msitec.gestao.controllers;
 
 import java.util.List;
 
+import org.hibernate.query.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.msitec.gestao.dtos.ClientRecordDto;
@@ -27,22 +29,30 @@ public class ClientController {
 
     @Autowired
     ClientRepository clientRepository;
-    
+
     @Autowired
     ClientService clientService;
 
     @PostMapping
-    public ResponseEntity<ClientModel> saveClient(@RequestBody @Valid ClientRecordDto clientRecordDto){
+    public ResponseEntity<ClientModel> saveClient(@RequestBody @Valid ClientRecordDto clientRecordDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.save(clientRecordDto));
     }
 
+    @GetMapping("/search")
+    public Page<ClientModel> search(
+            @RequestParam("searchTerm") String searchTerm,
+            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
+        return clientService.search(searchTerm, page, size);
+    }
+
     @GetMapping
-    public ResponseEntity<List<ClientModel>> getAllClients(){
+    public ResponseEntity<List<ClientModel>> getAllClients() {
         return ResponseEntity.status(HttpStatus.OK).body(clientService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClientModel> getOneClient(@PathVariable(value = "id") Long id){
+    public ResponseEntity<ClientModel> getOneClient(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(clientService.getById(id));
     }
 
@@ -50,14 +60,12 @@ public class ClientController {
     public ResponseEntity<ClientModel> updateClient(
             @PathVariable(value = "id") Long id,
             @RequestBody @Valid ClientRecordDto clientRecordDto) {
-                return ResponseEntity.status(HttpStatus.OK).body(clientService.updateClient(id, clientRecordDto));
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.updateClient(id, clientRecordDto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteClient(@PathVariable(value="id") Long id){
+    public ResponseEntity<Object> deleteClient(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(clientService.deleteClient(id));
     }
-
-
 
 }
