@@ -46,12 +46,12 @@ Uma aplicação em Java utilizando o Spring Boot, com implementação de operaç
 1. Clone o repositório git
 
 ```bash
-git clone https://github.com/lucas-valencia/gestao.git
+$ git clone https://github.com/lucas-valencia/gestao.git
 ```
 
 2. Garanta pelo menos a versão 3.8.7 do Maven instalada
 ```bash
-mvn --version
+$ mvn --version
 ```
 
 Retorno esperado:
@@ -68,7 +68,7 @@ Java version: 21.0.5, vendor: Ubuntu, runtime: /usr/lib/jvm/java-21-openjdk-amd6
 1. Rode a aplicação com Maven
 
 ```bash
-mvn spring-boot:run
+$ ../gestao mvn spring-boot:run
 ```
 
 2. A API é acessivel em: http://localhost:8080
@@ -155,3 +155,46 @@ Cliente deletado com sucesso!
 
 O projeto utiliza [H2](https://h2database.com/html/main.html) como banco de dados em memória.
 
+## Exceções
+
+# Cliente não encontrado
+
+```markdown
+
+GET /clients/{id} - Caso seja passado um valor de ID que não existe no banco de dados
+
+Retorno:
+
+HttpStatus: 404 Not Found
+
+Cliente não encontrado
+
+```
+
+# Cliente com CPF já cadastrado
+
+```markdown
+
+POST /clients - Caso seja informado um valor de CPF no body que já exista no banco de dados
+
+Retorno:
+
+HttpStatus: 409 Conflict
+
+Cliente com CPF já cadastrado
+
+```
+
+# Cliente com CPF já cadastrado
+
+```markdown
+
+POST /clients - Caso seja informado um valor de CPF no body que possua um valor diferente de 11 dígitos numéricos
+
+Retorno:
+
+HttpStatus: 400 Bad Request
+
+O CPF deve conter exatamente 11 dígitos numéricos
+
+```
