@@ -9,6 +9,17 @@
 </p>
 Uma aplicação em Java utilizando o Spring Boot, com implementação de operações básicas de um sistema CRUD.
 
+## Index
+
+- [Requisitos Funcionais](#requisitos-funcionais)
+- [Requisitos Técnicos](#requisitos-técnicos)
+- [Requisitos Extras](#requisitos-extras)
+- [Instalação](#instalação)
+- [Configuração de Uso](#configuração-de-uso)
+- [API EndPoins](#api-endpoints)
+- [Banco de dados](#banco-de-dados)
+- [Exceções](#exceções)
+
 ## Requisitos Funcionais
 
 - [x] Listagem geral
@@ -198,55 +209,3 @@ HttpStatus: 400 Bad Request
 O CPF deve conter exatamente 11 dígitos numéricos
 
 ```
-
-## Testes funcionais
-
-Utilize um software para testes de API, como Postman, por exemplo.
-
-### Cadastro Cliente
-
-<img src="/imgsreadme/ExemploPost.png">
-
-### Listagem geral
-
-<img src="/imgsreadme/ExemploGetAll.png>
-
-### Consulta por ID
-
-<img src="/imgsreadme/ExemploGetById.png">
-
-### Atualização de datos
-
-<img src="/imgsreadme/ExemploPutUpdateClient.png">
-<br>
-<img src="/imgsreadme/ExemploPutUpdateClientGetAll.png">
-
-### Remoção de registro
-
-<img src="/imgsreadme/ExemploDeleteCliente.png">
-
-## Teste de exceções
-
-### Cadastro Cliente sem envio de CPF
-
-<img src="/imgsreadme/CPF em branco.png">
-
-### Cadastro cliente com CPF diferente de 11 dígitos
-
-<img src="/imgsreadme/CPFDifrente11Digitos.png">
-
-### Cadastro cliente nome em branco
-
-<img src="/imgsreadme/Nome em branco.png">
-
-### Atualização de cliente passando ID inexistente
-
-<img src="/imgsreadme/UpdateClienteIDNaoExistente.png">
-
-### Atualização de cliente sem CPF
-
-<img src="/imgsreadme/UpdateClieenteSemCPF.png">
-
-### Remoção de cliente passando ID inexistente
-
-<img src="/imgsreadme/DeleteClienteInexistente.png">

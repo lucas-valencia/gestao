@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(ClientAlreadyExistsException.class)
     public ResponseEntity<String> handleClientAlreadyExistsException(ClientAlreadyExistsException ex){
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

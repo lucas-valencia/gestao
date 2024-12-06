@@ -78,11 +78,9 @@ public class ClientServiceImpl implements ClientService {
             throw new ClientAlreadyExistsException("Cliente com CPF já cadastrado");
         }
 
-        LocalDateTime dateTime = LocalDateTime.now();
-
         var client = new ClientModel();
         BeanUtils.copyProperties(clientRecordDto, client);
-        client.setDataCriacao(dateTime);
+        client.setDataCriacao(LocalDateTime.now());
 
         return clientRepository.save(client);
     }
