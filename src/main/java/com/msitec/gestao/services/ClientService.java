@@ -16,5 +16,6 @@ public interface ClientService{
     ClientModel updateClient(Long id, ClientRecordDto clientRecordDto);
     String deleteClient(Long id);
     Page<ClientRecordDto> listAllClientsPagination(Pageable pageable);
+    Page<ClientRecordDto> filterClientsByNomeOrCpf(String nome, String cpf, Pageable pageable);
 
 }

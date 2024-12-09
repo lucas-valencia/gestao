@@ -4,7 +4,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.msitec.gestao.dtos.ClientRecordDto;
@@ -101,5 +100,11 @@ public class ClientServiceImpl implements ClientService {
             return client;
         });
         return pageClientsDto;
+    }
+
+    @Override
+    public Page<ClientRecordDto> filterClientsByNomeOrCpf(String nome, String cpf, Pageable pageable){
+        Page<ClientModel> pageClients = clientRepository.findByNomeContainingIgnoreCaseOrCpfContaining(nome, cpf, pageable);
+        return pageClients.map(ClientRecordDto::new);
     }
 }

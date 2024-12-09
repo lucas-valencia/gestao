@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.msitec.gestao.dtos.ClientRecordDto;
@@ -56,6 +57,32 @@ public class ClientController {
     public ResponseEntity<Page<ClientRecordDto>> listAllClientsPagination(Pageable pageable){
         Page<ClientRecordDto> page = clientService.listAllClientsPagination(pageable);
         if(page.getTotalElements() > 0){
+            return ResponseEntity.status(HttpStatus.OK).body(page);
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(page);
+    }
+
+    @GetMapping("/filtrar")
+    public ResponseEntity<Page<ClientRecordDto>> filterClients(String nome, String cpf, Pageable pageable){
+    //public Page<ClientRecordDto> filterClients(
+    //     @RequestParam(required = false) String nome,
+    //     @RequestParam(required = false) String cpf,
+    //     Pageable pageable
+    // ) {
+
+        // if ((nome == null || nome.isBlank()) && (cpf == null || cpf.isBlank())) {
+        //     return clientRepository.findAll(pageable).map(ClientRecordDto::new);
+        // }
+
+        // return clientRepository.findByNomeContainingIgnoreCaseOrCpfContaining(
+        //     nome != null ? nome : "",
+        //     cpf != null ? cpf : "",
+        //     pageable
+        //     ).map(ClientRecordDto::new);
+
+        Page<ClientRecordDto> page = clientService.filterClientsByNomeOrCpf(nome, cpf, pageable);
+
+        if (page.getTotalElements() > 0) {
             return ResponseEntity.status(HttpStatus.OK).body(page);
         }
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(page);
