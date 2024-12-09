@@ -80,8 +80,14 @@ public class ClientController {
         //     pageable
         //     ).map(ClientRecordDto::new);
 
-        Page<ClientRecordDto> page = clientService.filterClientsByNomeOrCpf(nome, cpf, pageable);
 
+        System.out.println("Filtro nome: " + nome);
+        System.out.println("Filtro CPF: " + cpf);
+        System.out.println("Pageable: " + pageable);
+
+        Page<ClientRecordDto> page = clientService.filterClientsByNomeOrCpf(nome, cpf, pageable);
+        System.out.println("Page Elements: " + page.getTotalElements());
+        System.out.println(page.toString());
         if (page.getTotalElements() > 0) {
             return ResponseEntity.status(HttpStatus.OK).body(page);
         }
