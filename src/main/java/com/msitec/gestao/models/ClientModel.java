@@ -23,9 +23,17 @@ public class ClientModel implements Serializable {
     private String nome;
     @Column(name = "CPF", length = 11, unique = true)
     private String cpf;
-    @Column(name = "DATA_CRIAÇÃO")
+    @Column(name = "DATA_CRIACAO")
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime dataCriacao;
+
+    public ClientModel(Long l, String nome, String cpf) {
+        this.dataCriacao = LocalDateTime.now();
+    }
+
+    public ClientModel(){
+        
+    }
 
     public Long getIdClient() {
         return idClient;

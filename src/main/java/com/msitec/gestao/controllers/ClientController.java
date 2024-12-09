@@ -2,8 +2,9 @@ package com.msitec.gestao.controllers;
 
 import java.util.List;
 
-import org.hibernate.query.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.msitec.gestao.dtos.ClientRecordDto;
@@ -38,17 +38,27 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.save(clientRecordDto));
     }
 
-    @GetMapping("/search")
-    public Page<ClientModel> search(
-            @RequestParam("searchTerm") String searchTerm,
-            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
-        return clientService.search(searchTerm, page, size);
-    }
+    // @GetMapping("/search")
+    // public Page<ClientModel> search(
+    // @RequestParam("searchTerm") String searchTerm,
+    // @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+    // @RequestParam(value = "size", required = false, defaultValue = "10") int
+    // size) {
+    // return clientService.search(searchTerm, page, size);
+    // }
 
     @GetMapping
     public ResponseEntity<List<ClientModel>> getAllClients() {
         return ResponseEntity.status(HttpStatus.OK).body(clientService.findAll());
+    }
+
+    @GetMapping("/listar/paginando")
+    public ResponseEntity<Page<ClientRecordDto>> listAllClientsPagination(Pageable pageable){
+        Page<ClientRecordDto> page = clientService.listAllClientsPagination(pageable);
+        if(page.getTotalElements() > 0){
+            return ResponseEntity.status(HttpStatus.OK).body(page);
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(page);
     }
 
     @GetMapping("/{id}")
@@ -67,5 +77,17 @@ public class ClientController {
     public ResponseEntity<Object> deleteClient(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(clientService.deleteClient(id));
     }
+
+    // @GetMapping("/search")
+    // public ResponseEntity<List<ClientModel>> listClients(
+    // @RequestParam int page,
+    // @RequestParam int itens) {
+    // return ResponseEntity.status(HttpStatus.OK).body(clientService.findAll(page,
+    // itens));
+    // }
+
+    // public List<ClientModel> listClients(Pageable pageable) {
+    // return clientService.listClients(pageable).getContent();
+    // }
 
 }

@@ -2,6 +2,9 @@ package com.msitec.gestao.services;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.msitec.gestao.dtos.ClientRecordDto;
@@ -34,7 +37,7 @@ public class ClientServiceImpl implements ClientService {
 
     public void setClientRepository(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
-    }
+    }    
 
     @Override
     public List<ClientModel> findAll(){
@@ -90,4 +93,13 @@ public class ClientServiceImpl implements ClientService {
         return "Cliente deletado com sucesso!";
     }
 
+    @Override
+    public Page<ClientRecordDto> listAllClientsPagination(Pageable pageable){
+        Page<ClientModel> pageClients = clientRepository.findAll(pageable);
+        Page<ClientRecordDto> pageClientsDto = pageClients.map(c -> {
+            ClientRecordDto client = new ClientRecordDto(c);
+            return client;
+        });
+        return pageClientsDto;
+    }
 }
