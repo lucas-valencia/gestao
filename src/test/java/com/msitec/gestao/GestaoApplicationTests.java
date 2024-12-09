@@ -1,31 +1,56 @@
 package com.msitec.gestao;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Repository;
+import org.springframework.test.context.ActiveProfiles;
+import static org.assertj.core.api.Assertions.assertThat;
 
+import com.msitec.gestao.dtos.ClientRecordDto;
 import com.msitec.gestao.models.ClientModel;
+import com.msitec.gestao.repositories.ClientRepository;
 import com.msitec.gestao.services.ClientService;
 
+
+import jakarta.persistence.EntityManager;
+
 @SpringBootTest
+@ActiveProfiles("test")
 class GestaoApplicationTests {
 
-	static final ClientModel CLIENT_0 = new ClientModel(1L, "Lucas", "09955411910");
-	static final ClientModel CLIENT_1 = new ClientModel(2L, "Maria", "09955411911");
-	static final ClientModel CLIENT_2 = new ClientModel(3L, "João", "09955411912");
-
+	@Autowired
+	ClientRepository clientRepository;
 
 	@Autowired
 	ClientService clientService;
 
-	@Test
-	void testListClientsPaginated() {
-		// Pageable pageable = PageRequest.of(0, 2);
-		// Page<ClientModel> pageClients =  clientService.listClients(pageable);
+	@Autowired
+	EntityManager entityManager;
 
-		// assertEquals(2, pageClients.getContent().size());
-		// assertEquals(CLIENT_0, pageClients.getContent().get(0));
-		// assertEquals(CLIENT_1, pageClients.getContent().get(1));
+	@Test
+	@DisplayName("Decidir")
+	void clientTestServiceSave() {
+
+		ClientRecordDto dado = new ClientRecordDto("Teste0", "00000000001");
+		this.createClient(dado);
+
+		ClientModel savedClient = this.clientService.save(dado);
+
+		Assertions.assertEquals(dado, savedClient);
+
+	}
+
+	private ClientModel createClient(ClientRecordDto client){
+		ClientModel newClient = new ClientModel(client);
+		BeanUtils.copyProperties(client, newClient);
+		return newClient;
 	}
 
 }

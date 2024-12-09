@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.msitec.gestao.dtos.ClientRecordDto;
@@ -87,7 +86,7 @@ public class ClientController {
 
         Page<ClientRecordDto> page = clientService.filterClientsByNomeOrCpf(nome, cpf, pageable);
         System.out.println("Page Elements: " + page.getTotalElements());
-        System.out.println(page.toString());
+        //System.out.println(page.toString());
         if (page.getTotalElements() > 0) {
             return ResponseEntity.status(HttpStatus.OK).body(page);
         }

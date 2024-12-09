@@ -10,6 +10,7 @@ import com.msitec.gestao.models.ClientModel;
 @Repository
 public interface ClientRepository extends JpaRepository<ClientModel, Long>{
     boolean existsByCpf(String cpf);
+    //  Page<ClientModel> findByNomeContainingOrCpf(String nome, String cpf, Pageable pageable);
     Page<ClientModel> findByNomeContainingIgnoreCaseOrCpfContaining(String nome, String cpf, Pageable pageable);
 
 }
