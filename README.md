@@ -96,6 +96,8 @@ GET /clients - Retorna uma lista de todos os clientes cadastrados
 
 ```
 
+```markdown
+
 GET /clients/listar/paginando?page=0&size=2 - Retorna uma lista de todos os clientes cadastrados informando a pagina a ser acessada e o número de clientes por página.
 
 Key     | Value |
@@ -193,8 +195,6 @@ Retorno:
 
 Podem ser passados as keys page e size para criar uma filtro com paginação
 
-
-
 ```
 
 ```markdown
@@ -253,7 +253,8 @@ Retorno:
 }
 
 ```
-```markdonw
+
+```markdown
 
 DELETE /clients/{id} - Deleta o cliente do respectivo ID informado
 
