@@ -19,7 +19,6 @@ public record ClientRecordDto(
 
         this.nome = nome;
         this.cpf = cpf;
-
     }
 
 }
