@@ -100,7 +100,9 @@ Retorno:
 
 ```markdown
 
-GET /clients/listar/paginando?page=0&size=2 - Retorna uma lista de todos os clientes <br /> cadastrados informando a pagina a ser acessada e o número de clientes por página.
+GET /clients/listar/paginando?page=0&size=2 - Retorna uma lista de todos os clientes  
+cadastrados informando a página a ser acessada e o número de clientes por página.
+
 
 Key     | Value |
 page    | 0     |
@@ -149,7 +151,8 @@ Retorno:
 ```
 
 ```markdown
-GET /clients/filtar?nome=exemplo&cpf=10 - Retorna uma lista de clients que possuem <br /> algum componente das keys passadas
+GET /clients/filtar?nome=exemplo&cpf=10 - Retorna uma lista de clients que possuem  
+algum componente das keys passadas
 
 Key     | Value     |
 nome    | exemplo   |
