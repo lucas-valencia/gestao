@@ -2,9 +2,8 @@ package com.msitec.gestao.services;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.integration.IntegrationProperties.RSocket.Client;
-import org.springframework.cglib.core.Local;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.msitec.gestao.dtos.ClientRecordDto;
@@ -14,8 +13,6 @@ import com.msitec.gestao.exceptions.ClientAlreadyExistsException;
 import com.msitec.gestao.exceptions.ClientNoFoundException;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +36,7 @@ public class ClientServiceImpl implements ClientService {
 
     public void setClientRepository(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
-    }
+    }    
 
     @Override
     public List<ClientModel> findAll(){
@@ -57,17 +54,6 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientModel save(ClientRecordDto clientRecordDto){
-        
-        /*for(Long i = 1L; i < clientRepository.findAll().size(); i++){
-            //var client0 = clientRepository.findById(i);
-            //Long cpfLong = Long.parseLong(client0.get().getCpf());
-            //Long cpfL = Long.parseLong(clientRepository.findById(i).get().getCpf());
-            if (clientRepository.findById(i).get().getCpf().equals(clientRecordDto.cpf())) {
-               throw new ClientAlreadyExistsException("Cliente com CPF já cadastrado");
-            }
-            //if (clientRecordDto.cpf().equals(clientRepository.findById(i).get().getCpf())) {    
-            //}
-        }*/
         
         String cpf = clientRecordDto.cpf();
         if (cpf == null || !cpf.matches("\\d{11}")) {
@@ -106,4 +92,19 @@ public class ClientServiceImpl implements ClientService {
         return "Cliente deletado com sucesso!";
     }
 
+    @Override
+    public Page<ClientRecordDto> listAllClientsPagination(Pageable pageable){
+        Page<ClientModel> pageClients = clientRepository.findAll(pageable);
+        Page<ClientRecordDto> pageClientsDto = pageClients.map(c -> {
+            ClientRecordDto client = new ClientRecordDto(c);
+            return client;
+        });
+        return pageClientsDto;
+    }
+
+    @Override
+    public Page<ClientRecordDto> filterClientsByNomeOrCpf(String nome, String cpf, Pageable pageable){
+        Page<ClientModel> pageClients = clientRepository.findByNomeContainingIgnoreCaseOrCpfContaining(nome, cpf, pageable);
+        return pageClients.map(ClientRecordDto::new);
+    }
 }

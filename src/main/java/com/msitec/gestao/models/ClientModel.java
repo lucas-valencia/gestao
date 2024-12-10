@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.msitec.gestao.dtos.ClientRecordDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,19 +14,33 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "TB_CLIENTS")
+@Table(name = "table_clients")
 public class ClientModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true)
+    @Column(name = "id", unique = true)
     private Long idClient;
-    @Column(name = "NOME", length = 200)
+    @Column(name = "nome", length = 200)
     private String nome;
-    @Column(name = "CPF", length = 11, unique = true)
+    @Column(name = "cpf", length = 11, unique = true)
     private String cpf;
-    @Column(name = "DATA_CRIAÇÃO")
+    @Column(name = "dataCriacao")
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime dataCriacao;
+
+    public ClientModel(Long l, String nome, String cpf) {
+        this.dataCriacao = LocalDateTime.now();
+    }
+
+    public ClientModel(){
+        
+    }
+
+    public ClientModel(ClientRecordDto clientDto){
+        this.nome = clientDto.nome();
+        this.cpf = clientDto.cpf();
+        this.dataCriacao = LocalDateTime.now();
+    }
 
     public Long getIdClient() {
         return idClient;
