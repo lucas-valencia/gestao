@@ -91,6 +91,8 @@ A API fornece os seguintes endpoints:
 ```markdown
 GET /clients - Retorna uma lista de todos os clientes cadastrados
 
+Retorno:
+
 [{"idClient":1,"nome":"Exemplo","cpf":"98765432112","dataCriacao":"06-12-2024 08:49"},
 {"idClient":2,"nome":"ExemploDois","cpf":"98765432114","dataCriacao":"06-12-2024 08:49"}]
 
@@ -98,10 +100,10 @@ GET /clients - Retorna uma lista de todos os clientes cadastrados
 
 ```markdown
 
-GET /clients/listar/paginando?page=0&size=2 - Retorna uma lista de todos os clientes cadastrados informando a pagina a ser acessada e o número de clientes por página.
+GET /clients/listar/paginando?page=0&size=2 - Retorna uma lista de todos os clientes <br> cadastrados informando a pagina a ser acessada e o número de clientes por página.
 
 Key     | Value |
-pafe    | 0     |
+page    | 0     |
 size    | 2     |
 
 Retorno:
@@ -147,7 +149,7 @@ Retorno:
 ```
 
 ```markdown
-GET /clients/filtar?nome=exemplo&cpf=10 - Retorna uma lista de clients que possuem algum componente das keys passadas
+GET /clients/filtar?nome=exemplo&cpf=10 - Retorna uma lista de clients que possuem <br> algum componente das keys passadas
 
 Key     | Value     |
 nome    | exemplo   |
