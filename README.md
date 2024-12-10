@@ -46,9 +46,9 @@ Uma aplicação em Java utilizando o Spring Boot, com implementação de operaç
 ## Requisitos Extras
 - [x] Validação por Bean Validation
 - [x] Mensagens customizadas de erro no retorno das APIs
-- [ ] Criar filtro para buscar pelo nome
-- [ ] Implementar paginação na listagem das entidades
-- [ ] Criar testes unitários para as classes de serviço e/ou controller
+- [x] Criar filtro para buscar pelo nome
+- [x] Implementar paginação na listagem das entidades
+- [~] Criar testes unitários para as classes de serviço e/ou controller
 
 
 
@@ -93,6 +93,107 @@ GET /clients - Retorna uma lista de todos os clientes cadastrados
 
 [{"idClient":1,"nome":"Exemplo","cpf":"98765432112","dataCriacao":"06-12-2024 08:49"},
 {"idClient":2,"nome":"ExemploDois","cpf":"98765432114","dataCriacao":"06-12-2024 08:49"}]
+
+```
+
+GET /clients/listar/paginando?page=0&size=2 - Retorna uma lista de todos os clientes cadastrados informando a pagina a ser acessada e o número de clientes por página.
+
+Key     | Value |
+pafe    | 0     |
+size    | 2     |
+
+Retorno:
+
+{
+    "content": [
+        {
+            "nome": "Exemplo",
+            "cpf": "98765432112"
+        },
+        {
+            "nome": "Teste",
+            "cpf": "98765432110"
+        }
+    ],
+    "pageable": {
+        "pageNumber": 0,
+        "pageSize": 2,
+        "sort": {
+            "sorted": false,
+            "empty": true,
+            "unsorted": true
+        },
+        "offset": 0,
+        "paged": true,
+        "unpaged": false
+    },
+    "last": false,
+    "totalElements": 3,
+    "totalPages": 2,
+    "first": true,
+    "size": 2,
+    "number": 0,
+    "sort": {
+        "sorted": false,
+        "empty": true,
+        "unsorted": true
+    },
+    "numberOfElements": 2,
+    "empty": false
+}
+
+```
+
+```markdown
+GET /clients/filtar?nome=exemplo&cpf=10 - Retorna uma lista de clients que possuem algum componente das keys passadas
+
+Key     | Value     |
+nome    | exemplo   |
+cpf     | 10        |
+
+Retorno:
+
+{
+    "content": [
+        {
+            "nome": "Exemplo",
+            "cpf": "98765432112"
+        },
+        {
+            "nome": "Teste",
+            "cpf": "98765432110"
+        }
+    ],
+    "pageable": {
+        "pageNumber": 0,
+        "pageSize": 20,
+        "sort": {
+            "sorted": false,
+            "empty": true,
+            "unsorted": true
+        },
+        "offset": 0,
+        "paged": true,
+        "unpaged": false
+    },
+    "last": true,
+    "totalElements": 2,
+    "totalPages": 1,
+    "first": true,
+    "size": 20,
+    "number": 0,
+    "sort": {
+        "sorted": false,
+        "empty": true,
+        "unsorted": true
+    },
+    "numberOfElements": 2,
+    "empty": false
+}
+
+Podem ser passados as keys page e size para criar uma filtro com paginação
+
+
 
 ```
 
